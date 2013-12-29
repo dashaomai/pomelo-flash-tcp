@@ -349,10 +349,12 @@ package org.idream.pomelo
 		*/
 		public function destroy():void
 		{
-			for (var r:int=_routesAndCallbacks.length-1;r>=0;r--)
-			{
-				this.removeEventListener(_routesAndCallbacks[r][0], _routesAndCallbacks[r][1]);
-			}
+      for each (var racs:Array in _routesAndCallbacks)
+      {
+        removeEventListener(racs[0], racs[1]);
+        racs.length = 0;
+      }
+      _routesAndCallbacks.length = 0;
 
 			_socket.removeEventListener(Event.CONNECT, onConnect);
 			_socket.removeEventListener(Event.CLOSE, onClose);
